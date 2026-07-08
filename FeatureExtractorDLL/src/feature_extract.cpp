@@ -4,10 +4,10 @@
 #include <cmath>
 #include <vector>
 
-// ============================================================
+
 // Uniform LBP 查找表（P=8，半径=1）
 // 58 个 uniform 模式 + 1 个非 uniform 桶 = 59 bins
-// ============================================================
+
 static bool is_uniform_lbp(int code)
 {
     int bits = code | (code << 8);
@@ -38,10 +38,10 @@ static void build_uniform_lbp_lookup(int table[256])
     }
 }
 
-// ============================================================
+
 // 提取单张图片的多特征向量
 // 包含：HSV 颜色直方图 + LBP 纹理直方图 + Hu 形状不变矩
-// ============================================================
+
 int extract_feature(ImageInfo* img)
 {
     // 1. 读取图片
@@ -59,9 +59,9 @@ int extract_feature(ImageInfo* img)
         img->hist[i] = 0.0f;
     }
 
-    // ========================================================
-    // 2. HSV 颜色直方图（替代原来的 BGR）
-    // ========================================================
+
+    // 2. HSV 颜色直方图
+  
     cv::Mat hsv;
     cv::cvtColor(mat, hsv, cv::COLOR_BGR2HSV);
 
@@ -92,9 +92,9 @@ int extract_feature(ImageInfo* img)
         img->hist[HSV_OFFSET + i + 2 * HSV_BINS] = v_hist.at<float>(i);
     }
 
-    // ========================================================
+  
     // 3. Uniform LBP 纹理直方图
-    // ========================================================
+
     cv::Mat gray;
     cv::cvtColor(mat, gray, cv::COLOR_BGR2GRAY);
 
@@ -135,9 +135,9 @@ int extract_feature(ImageInfo* img)
         img->hist[LBP_OFFSET + i] = lbp_hist[i];
     }
 
-    // ========================================================
+
     // 4. Hu 形状不变矩
-    // ========================================================
+
     cv::Moments m = cv::moments(gray, false);
     double hu[7];
     cv::HuMoments(m, hu);
@@ -172,9 +172,9 @@ int extract_feature(ImageInfo* img)
     return 0;
 }
 
-// ============================================================
+
 // 批量提取数据库中所有图片的特征
-// ============================================================
+
 void extract_all(ImageDB* db)
 {
     for (int i = 0; i < db->count; i++) {
