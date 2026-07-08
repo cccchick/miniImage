@@ -86,6 +86,14 @@ MiniImageRetrieval/
 ├── LICENSE                       # 开源许可证
 └── .gitignore                    # Git 忽略规则
 ```
+## 项目分工
+
+| 成员 | 负责模块 | 主要工作 |
+|:----:|:--------:|:---------|
+| 张淑文 | **ImageLoaderDLL** | 使用 Win32 API 遍历文件夹，筛选 jpg/png 图片 |
+| 胡文涛 | **IndexerDLL** | 检查特征有效性，统计已提取特征的图片数量 |
+| 况佳煜 | **SearcherDLL** | 实现加权余弦相似度计算与 Top-K 排序 |
+| 姬艺洪 | **FeatureExtractorDLL + App 整合** | 提取 HSV/LBP/Hu 多特征融合，完成OpenCV/Qt 环境联调、Git 版本管理、工程整合 |
 
 ---
 
